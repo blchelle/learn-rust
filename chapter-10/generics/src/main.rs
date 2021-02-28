@@ -97,23 +97,26 @@ fn largest_char(list: &[char]) -> char {
  * example, a custom struct. So we need to somehow indicate that T must be a
  * type which can be ordered/compared
  */
-// fn largest_generic<T>(list: &[T]) -> T {
-//     println!("===== Largest Generic =====");
+fn largest_generic<T>(list: &[T]) -> T
+where
+    T: PartialOrd + Copy,
+{
+    println!("===== Largest Generic =====");
 
-//     // Initializes largest to be -inf
-//     let mut largest = list[0];
+    // Initializes largest to be -inf
+    let mut largest = list[0];
 
-//     // Iterates through the slice, reassigning the largest every time
-//     // a larger number is found
-//     for item in list {
-//         if *item > largest {
-//             largest = *item;
-//         }
-//     }
+    // Iterates through the slice, reassigning the largest every time
+    // a larger number is found
+    for item in list {
+        if *item > largest {
+            largest = *item;
+        }
+    }
 
-//     // Returns the largest
-//     largest
-// }
+    // Returns the largest
+    largest
+}
 
 fn main() {
     let int_list = vec![100, 45, 200, 1, -7];
@@ -123,6 +126,9 @@ fn main() {
     let char_list = vec!['c', 'a', 'B', 'z', '9'];
     println!("{}", largest_char(&char_list));
     println!();
+
+    println!("{}", largest_generic(&int_list));
+    println!("{}", largest_generic(&char_list));
 
     // Two uses of the generic struct we created above
     let integer = Point { x: 5, y: 10 };
